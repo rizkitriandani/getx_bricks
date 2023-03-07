@@ -32,6 +32,7 @@ void run(HookContext context) async {
           fileConflictResolution: FileConflictResolution.prompt);
 
       context.logger.info('files: $files');
+      await generator.hooks.postGen(vars: vars);
     } catch (err) {
       context.logger.err('error: $err');
     }
@@ -50,5 +51,6 @@ void run(HookContext context) async {
         logger: context.logger,
         fileConflictResolution: FileConflictResolution.prompt);
     context.logger.info('files: $files');
+    await generator.hooks.postGen(vars: vars);
   }
 }
