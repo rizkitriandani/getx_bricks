@@ -12,8 +12,9 @@ void run(HookContext context) async {
     'lib',
     'features',
   ));
-
+  context.logger.info('featuresDirectory: $featuresDirectory');
   if (featuresDirectory.existsSync()) {
+    context.logger.info('folder features already exist');
     final brick = Brick.git(GitPath(
         'https://github.com/rizkitriandani/getx_bricks.git',
         path: 'getx_feature'));
@@ -26,11 +27,13 @@ void run(HookContext context) async {
         logger: context.logger,
         fileConflictResolution: FileConflictResolution.prompt);
   } else {
+    context.logger.info('folder features not exist');
+    Directory newDirectory = await featuresDirectory.create();
     final brick = Brick.git(GitPath(
         'https://github.com/rizkitriandani/getx_bricks.git',
         path: 'getx_feature'));
     final generator = await MasonGenerator.fromBrick(brick);
-    final target = DirectoryGeneratorTarget(featuresDirectory);
+    final target = DirectoryGeneratorTarget(newDirectory);
     var vars = <String, dynamic>{'name': name};
     await generator.hooks.preGen(vars: vars, onVarsChanged: (v) => vars = v);
     final files = await generator.generate(target,
