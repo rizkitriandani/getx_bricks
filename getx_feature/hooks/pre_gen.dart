@@ -29,7 +29,7 @@ void run(HookContext context) async {
       final files = await generator.generate(target,
           vars: vars,
           logger: context.logger,
-          fileConflictResolution: FileConflictResolution.prompt);
+          fileConflictResolution: FileConflictResolution.overwrite);
 
       context.logger.info('files: $files');
       await generator.hooks.postGen(vars: vars);
@@ -49,7 +49,7 @@ void run(HookContext context) async {
     final files = await generator.generate(target,
         vars: vars,
         logger: context.logger,
-        fileConflictResolution: FileConflictResolution.prompt);
+        fileConflictResolution: FileConflictResolution.overwrite);
     context.logger.info('files: $files');
     await generator.hooks.postGen(vars: vars);
   }
