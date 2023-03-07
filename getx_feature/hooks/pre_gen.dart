@@ -13,6 +13,7 @@ void run(HookContext context) async {
     'features',
   ));
   context.logger.info('featuresDirectory: $featuresDirectory');
+
   if (featuresDirectory.existsSync()) {
     context.logger.info('folder features already exist');
     final brick = Brick.git(GitPath(
@@ -26,6 +27,8 @@ void run(HookContext context) async {
         vars: vars,
         logger: context.logger,
         fileConflictResolution: FileConflictResolution.prompt);
+
+    context.logger.info('files: $files');
   } else {
     context.logger.info('folder features not exist');
     Directory newDirectory = await featuresDirectory.create();
@@ -40,5 +43,6 @@ void run(HookContext context) async {
         vars: vars,
         logger: context.logger,
         fileConflictResolution: FileConflictResolution.prompt);
+    context.logger.info('files: $files');
   }
 }
