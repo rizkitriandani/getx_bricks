@@ -20,8 +20,8 @@ void run(HookContext context) async {
     context.logger.info('folder features already exist');
     try {
       final brick = Brick.git(GitPath(
-        'https://github.com/rizkitriandani/getx_bricks.git',
-      ));
+          'https://github.com/rizkitriandani/getx_bricks.git',
+          path: 'getx_feature'));
       final generator = await MasonGenerator.fromBrick(brick);
       final target = DirectoryGeneratorTarget(featuresDirectory);
       var vars = <String, dynamic>{'name': name};
